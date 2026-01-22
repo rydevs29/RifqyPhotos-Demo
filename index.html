@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RifqyPhotos | Galaxy Style AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        galaxy: '#0f172a',
+                        accent: '#3b82f6',
+                        glass: 'rgba(255, 255, 255, 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-galaxy text-white font-sans min-h-screen selection:bg-accent selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-camera-retro text-accent text-xl"></i>
+            <h1 class="font-bold text-xl tracking-tighter">Rifqy<span class="text-accent">Photos</span></h1>
+        </div>
+        <button class="bg-white/10 hover:bg-white/20 px-4 py-1.5 rounded-full text-xs font-medium transition">
+            Beta v1.0
+        </button>
+    </nav>
+
+    <main class="pt-24 pb-10 px-4 max-w-6xl mx-auto">
+        
+        <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                Reimagine Your Reality
+            </h2>
+            <p class="text-gray-400 max-w-xl mx-auto">
+                Upload fotomu, gunakan <span class="text-white font-bold">Rifqy AI</span> untuk mengubah sketsa menjadi nyata atau edit objek ajaib.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="md:col-span-2 bg-glass border border-white/10 rounded-3xl p-1 relative group overflow-hidden hover:border-accent/50 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                
+                <div class="h-96 w-full rounded-2xl bg-black/40 flex flex-col items-center justify-center border border-white/5 relative overflow-hidden" id="previewArea">
+                    <div id="uploadState" class="text-center p-6">
+                        <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-500 mb-4 group-hover:text-accent transition"></i>
+                        <p class="text-gray-300 font-medium">Drag & Drop atau Klik</p>
+                        <p class="text-xs text-gray-500 mt-2">Mendukung JPG, PNG</p>
+                    </div>
+                    
+                    <img id="imagePreview" class="hidden w-full h-full object-contain z-10" />
+                    
+                    <input type="file" id="fileInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" accept="image/*">
+                </div>
+            </div>
+
+            <div class="bg-glass border border-white/10 rounded-3xl p-6 flex flex-col gap-4">
+                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest">AI Control Center</h3>
+                
+                <div class="grid grid-cols-2 gap-2 bg-black/50 p-1 rounded-xl">
+                    <button class="mode-btn active p-2 rounded-lg text-xs font-bold transition bg-accent text-white" onclick="setMode('enhance')">
+                        ✨ Enhance
+                    </button>
+                    <button class="mode-btn p-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white" onclick="setMode('sketch')">
+                        ✏️ Sketch
+                    </button>
+                </div>
+
+                <textarea id="promptInput" rows="4" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-accent resize-none" placeholder="Deskripsikan keinginanmu... (Contoh: Pesawat futuristik di langit senja)"></textarea>
+
+                <div class="mt-auto">
+                    <label class="text-[10px] text-gray-500 uppercase">API Key (Replicate/OpenAI)</label>
+                    <input type="password" id="apiKey" class="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-xs mb-3 text-white" placeholder="sk-...">
+                    
+                    <button onclick="runRifqyAI()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+                    </button>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 bg-glass border border-white/10 rounded-3xl p-6 min-h-[200px]">
+                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Hasil Generasi</h3>
+                <div id="resultContainer" class="flex gap-4 overflow-x-auto pb-2">
+                    <div class="text-gray-600 text-sm italic w-full text-center py-10">Belum ada hasil magis.</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
